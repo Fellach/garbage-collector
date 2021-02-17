@@ -1,9 +1,17 @@
-.App {
+body {
+  font-family: 'Open Sans';
+  font-weight: 300;
+}
+
+main {
   text-align: center;
 }
 
+h3, h4 {
+  font-weight: 300;
+}
 
-.App-header {
+header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -14,3 +22,18 @@
   color: white;
 }
 
+input {
+  display: block;
+  width: 220px;
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: #fcc300;
+  -webkit-appearance: none;
+  text-align: center;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #fcc300;
+}

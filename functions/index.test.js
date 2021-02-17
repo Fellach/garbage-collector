@@ -9,7 +9,7 @@ describe("aws lambda test", () => {
     expect(result).toEqual(expect.objectContaining({ statusCode: 400 }))
   });
 
-  test("it should return an json", async () => {
+  test("it should return Nic", async () => {
     const event = {
       queryStringParameters: {
         date: '2021-01-20'

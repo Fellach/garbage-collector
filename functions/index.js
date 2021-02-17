@@ -1,11 +1,10 @@
 const http = require('https');
+const fs = require('fs').promises;
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const cache = {
-  expireAt: null,
-  HTMLTable: null,
-}
+const cacheFile = '/tmp/table.cache';
+const expireAt = 604800000;
 
 exports.handler = async (event) => {
   const date = event.queryStringParameters.date;
@@ -41,7 +40,9 @@ function findGarbage(table, index) {
     return 'Nic';
   }
 
-  return table.querySelectorAll('thead th')[index].textContent;
+  const garbage = table.querySelectorAll('thead th')[index].textContent || '';
+
+  return garbage.replace('/ Pozostałeodpady komunalne', '');
 }
 
 function findIndex(table, date) {
@@ -55,14 +56,29 @@ function findIndex(table, date) {
 }
 
 async function loadTable(city, street) {
-  if (cache.expireAt < Date.now()) {
-    const page = await load(city, street);
+  let page = await readCache();
 
-    cache.HTMLTable = findTable(page);
-    cache.expireAt = Date.now() + 604800000 // week
+  if (!page) {
+    page = await load(city, street);
+    writeCache(page);
   }
 
-  return cache.HTMLTable;
+  return findTable(page);
+}
+
+async function readCache() {
+  try {
+    const cache = await fs.readFile(cacheFile, { encoding: 'utf8'});
+    const { mtimeMs } = await fs.stat(cacheFile);
+    const isInvalid = mtimeMs + expireAt < Date.now();
+    return isInvalid ? '' : cache;
+  } catch (_) {
+    return '';
+  }
+}
+
+async function writeCache(cache) {
+  await fs.writeFile(cacheFile, cache);
 }
 
 function load(city, street) {

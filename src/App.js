@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { scrap } from './scrapper';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -10,19 +11,14 @@ function App() {
   const [garbage, setGarbage] = useState('ładuję...');
 
   useEffect(() => {
-    const url = 'https://hcgxeeks66.execute-api.us-east-1.amazonaws.com/default/garbage-collector?';
-    const params = new URLSearchParams();
-    const dateFormatted = date.split('-').reverse().join('.');
-    params.append('date', dateFormatted);
     setGarbage('sprawdzam...');
 
     (async () => {
       try {
-        const response = await fetch(url + params);
-        const json = await response.json();
-        setGarbage(json.garbage);
-      } catch(e) {
-        setGarbage('błędy errory');
+        const garbage = await scrap('Pomorska', date)
+        setGarbage(garbage);
+      } catch(err) {
+        setGarbage(err);
       }
     })();
 

@@ -1,0 +1,7 @@
+name = "garbage-collector"
+type = "javascript"
+account_id = "ed4ec9def538c690ef1d97858d7439a5"
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2022-01-18"

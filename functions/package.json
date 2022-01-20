@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -f *.zip && zip -qr zg6.zip . && aws lambda update-function-code --function-name zg6 --zip-file fileb://zg6.zip"
+    "dev": "wrangler dev",
+    "publish": "wrangler publish",
+    "wr": "wrangler"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "jsdom": "^16.4.0"
-  },
-  "devDependencies": {}
+  "devDependencies": {
+    "@cloudflare/wrangler": "^1.19.7"
+  }
 }

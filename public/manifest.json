@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Co wywożą",
+  "name": "Sprawdza jakie wywożą śmieci",
   "icons": [
     {
       "src": "favicon.ico",
@@ -23,6 +23,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "theme_color": "#fcc300",
+  "background_color": "#282c34"
 }

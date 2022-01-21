@@ -4,7 +4,7 @@ import { scrap } from './scrapper';
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-const tomorrowStr = tomorrow.toISOString().slice(0, 10)
+const tomorrowStr = tomorrow.toISOString().slice(0, 10);
 
 function App() {
   const [date, setDate] = useState(tomorrowStr);
@@ -18,7 +18,8 @@ function App() {
         const garbage = await scrap('Pomorska', date)
         setGarbage(garbage);
       } catch(err) {
-        setGarbage(err);
+        console.log(err);
+        setGarbage('błąd');
       }
     })();
 

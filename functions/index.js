@@ -4,11 +4,19 @@ addEventListener("fetch", event => {
 })
 
 async function handleRequest(request) {
-  const { searchParams } = new URL(request.url)
+  if (request.method === 'OPTIONS') {
+    return createOptionsResponse();
+  } else if (request.method === 'GET') {
+    return createResponse(await loadPage(request.url));
+  }
+}
+
+function loadPage(url) {
+  const { searchParams } = new URL(url)
   const street = searchParams.get('street');
   const city = 'Gorzów Wielkopolski';
 
-  return await load(city, street);
+  return load(city, street);
 }
 
 function load(city, street) {
@@ -28,4 +36,22 @@ function load(city, street) {
   }
 
   return fetch(url, options);
+}
+
+function createResponse(fetchResponse) {
+  const response = new Response(fetchResponse.body, fetchResponse)
+  response.headers.set("Access-Control-Allow-Origin", "*")
+  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+
+  return response;
+}
+
+function createOptionsResponse() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS'
+    }
+  });
 }

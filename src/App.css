@@ -1,30 +1,31 @@
 body {
   font-family: 'Open Sans';
+  font-size: calc(10px + 2vmin);
   font-weight: 300;
+  text-align: center;
+  background-color: #282c34;
+  color: white;
 }
 
 main {
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h3, h4 {
   font-weight: 300;
 }
 
-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h4 {
+  margin-top: 33vh;
 }
 
 input {
   display: block;
-  width: 220px;
+  width: 100%;
+  max-width: 960px;
   border: none;
   background-color: transparent;
   font-size: 1.5rem;
@@ -36,4 +37,5 @@ input {
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: #fcc300;
+  margin: auto;
 }

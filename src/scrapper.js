@@ -4,10 +4,6 @@ const cacheCreatedAtKey = 'gc.created.at';
 const cacheDatatKey = 'gc.data';
 
 export async function scrap(street, date) {
-    if (!date) {
-      throw new Error('Brak daty');
-    }
-
     const dateFormatted = date.split('-').reverse().join('.');
 
     const table = await loadTable(street);
@@ -16,7 +12,6 @@ export async function scrap(street, date) {
 
     return garbage;
 }
-
 
 function findGarbage(table, index) {
   if (index < 0) {
